@@ -9,7 +9,7 @@ class Comentario(models.Model):
     email_comentario = models.EmailField()
     comentario = models.TextField()
     post_comentario = models.ForeignKey(
-        "posts.Post", related_name="post", on_delete=models.CASCADE
+        "posts.Post", related_name="post_comentario", on_delete=models.CASCADE
     )
     usuario_comentario = models.ForeignKey(
         User, related_name="user", on_delete=models.DO_NOTHING
