@@ -46,5 +46,17 @@ class PostCategoriaListView(PostIndex):
 class PostBuscaListView(PostIndex):
     template_name = "posts/post_busca.html"
 
+    def get_queryset(self):
+        qs = super().get_queryset()
+        termo = self.request.GET.get("termo", None)
+        if not termo:
+            return qs
+        qs = qs.filter(
+            Q(titulo__icontains=termo)
+            | Q(autor__first_name__iexact=termo)
+            | Q(conteudo__icontains=termo)  # Tirar Talvez
+            | Q(excerto__icontains=termo)
+            | Q(categoria__nome_categoria__iexact=termo)
+        )
 
-
+        return qs
