@@ -1,8 +1,11 @@
 from typing import ItemsView
 
 from categorias.models import Categoria
+from comentarios.forms import ComentarioForm
+from comentarios.models import Comentario
+from django.contrib import messages
 from django.db.models import Case, Count, Q, When
-from django.shortcuts import render
+from django.shortcuts import redirect, render
 from django.views.generic.edit import UpdateView
 from django.views.generic.list import ListView
 
@@ -29,6 +32,20 @@ class PostIndex(ListView):
 
 class PostDetalheUpdateView(UpdateView):
     model = Post
+    template_name = "posts/post_detalhe.html"
+    form_class = ComentarioForm
+    context_object_name = "post"
+
+    def form_valid(self, form):
+        post = self.get_object()
+        comentario = Comentario(**form.cleaned_data)
+        comentario.post_comentario = post
+        if self.request.user.is_authenticated:
+            comentario.usuario_comentario = self.request.user
+
+        comentario.save()
+        messages.success(self.request, "Comentario enviado com sucesso")
+        return redirect("posts:post_detalhes", pk=post.id)
 
 
 class PostCategoriaListView(PostIndex):
