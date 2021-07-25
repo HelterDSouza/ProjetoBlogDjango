@@ -47,6 +47,16 @@ class PostDetalheUpdateView(UpdateView):
         messages.success(self.request, "Comentario enviado com sucesso")
         return redirect("posts:post_detalhes", pk=post.id)
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        post = self.get_object()
+        comentarios = Comentario.objects.filter(
+            post_comentario=post,
+            publicado_comentario=True,
+        )
+        context["comentarios"] = comentarios
+        return context
+
 
 class PostCategoriaListView(PostIndex):
     template_name = "posts/post_categoria.html"
