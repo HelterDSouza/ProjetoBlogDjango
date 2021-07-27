@@ -1,5 +1,8 @@
 {% extends 'base.html' %}
 {% load humanize %}
+{% load posts_extras %}
+
+
 {% block content %}
 <div class="card-columns mt-4">
     <!-- FOR LOOP -->
@@ -21,7 +24,8 @@
                 {{post.excerto}}
             </p>
             <p class="card-text">
-                <small class="text-muted">{{post.data|naturalday|title}} | {{post.numero_comentarios}} comentario(s)
+                <small class="text-muted">{{post.data|naturalday|title}} |
+                    {{post.numero_comentarios|plural_comentarios}}
                     | {{post.categoria}}</small>
             </p>
 
