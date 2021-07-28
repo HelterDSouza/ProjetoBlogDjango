@@ -12,6 +12,23 @@ class ComentarioForm(forms.ModelForm):
             "comentario",
         )
         labels = {"nome_comentario": "Autor", "email_comentario": "Email"}
+        widgets = {
+            "nome_comentario": forms.widgets.TextInput(
+                attrs={
+                    "class": "form-control",
+                }
+            ),
+            "email_comentario": forms.widgets.EmailInput(
+                attrs={
+                    "class": "form-control",
+                }
+            ),
+            "comentario": forms.widgets.Textarea(
+                attrs={
+                    "class": "form-control",
+                },
+            ),
+        }
 
     def clean(self):
         data = self.cleaned_data

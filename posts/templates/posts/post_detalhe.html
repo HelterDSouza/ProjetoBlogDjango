@@ -67,23 +67,19 @@
 
             <form method="POST" action="#envia_comentario">
                 {% csrf_token %}
-                <table class="table">
-                    {{form}}
+                {% for hidden_field in form.hidden_fields %}
+                {{hidden_field}}
+                {% endfor %}
+                {% for field in form.visible_fields  %}
+                <div class="form-group">
+                    <label for="exampleFormControlInput1">{{field.label_tag}}{{field.errors}}</label>
 
-
-
-
-
-                    <tr>
-                        <td colspan="2">
-                            {% include 'parcials/_messages.html' %}
-                            <input id="envia_comentario" type="submit" class="btn btn-primary" value="Enviar">
-                        </td>
-                    </tr>
-                </table>
+                    {{field}}
+                </div>
+                {% endfor %}
+                {% include 'parcials/_messages.html' %}
+                <input id="envia_comentario" type="submit" class="btn btn-primary" value="Enviar">
             </form>
-
-
         </div>
         <div class="col-xl"></div>
     </div>
