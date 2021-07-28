@@ -20,8 +20,8 @@ class PostIndex(ListView):
     paginate_by = 6
 
     def get_queryset(self):
-        qs = super().get_queryset().filter(publicado=True)
-        qs = qs.order_by("-id")
+        qs = super().get_queryset().select_related("categoria")
+        qs = qs.order_by("-id").filter(publicado=True)
         qs = qs.annotate(
             numero_comentarios=Count(
                 Case(When(post_comentario__publicado_comentario=True, then=1))
