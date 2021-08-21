@@ -40,11 +40,13 @@ INSTALLED_APPS = [
     "django.contrib.humanize",
     # 3rd party
     "django_summernote",
+    "crispy_forms",
     # Local apps
     "posts.apps.PostsConfig",
     "categorias.apps.CategoriasConfig",
     "comentarios.apps.ComentariosConfig",
 ]
+CRISPY_TEMPLATE_PACK = "bootstrap4"
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",

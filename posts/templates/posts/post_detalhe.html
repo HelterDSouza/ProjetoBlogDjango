@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-
+{% load crispy_forms_tags %}
 
 {% block content %}
 
@@ -71,11 +71,10 @@
                 {{hidden_field}}
                 {% endfor %}
                 {% for field in form.visible_fields  %}
-                <div class="form-group">
-                    <label for="exampleFormControlInput1">{{field.label_tag}}{{field.errors}}</label>
 
-                    {{field}}
-                </div>
+
+                {{ field|as_crispy_field }}
+
                 {% endfor %}
                 {% include 'parcials/_messages.html' %}
                 <input id="envia_comentario" type="submit" class="btn btn-primary" value="Enviar">
