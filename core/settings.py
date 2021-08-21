@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     # 3rd party
     "django_summernote",
     "crispy_forms",
+    "axes",
     # Local apps
     "posts.apps.PostsConfig",
     "categorias.apps.CategoriasConfig",
@@ -56,6 +57,7 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    "axes.middleware.AxesMiddleware",
 ]
 
 ROOT_URLCONF = "core.urls"
@@ -156,3 +158,10 @@ MESSAGE_TAGS = {
     constants.SUCCESS: "alert-success",
     constants.INFO: "alert-info",
 }
+
+AUTHENTICATION_BACKENDS = [
+    # AxesBackend should be the first backend in the AUTHENTICATION_BACKENDS list.
+    "axes.backends.AxesBackend",
+    # Django ModelBackend is the default authentication backend.
+    "django.contrib.auth.backends.ModelBackend",
+]
